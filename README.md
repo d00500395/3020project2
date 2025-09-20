@@ -1,4 +1,4 @@
 #Project 1
 
-!(../assets/IMG_7992.JPG)
-!(../assets/IMG_7993.JPG)
+![Landing Screen](../assets/IMG_7992.JPG)
+![AFR Screen](../assets/IMG_7993.JPG)

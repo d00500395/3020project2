@@ -1,23 +1,34 @@
-import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useRouter } from "expo-router";
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
+type MapCardProps = {
+  title: string;
+  description: string;
+  features?: string[];
+  buttonText?: string;
+  route: "/map" | "/tune_selection" | "/permissions" | "/add";
+  isPrimary?: boolean;
+  params?: Record<string, string>; // ✅ allow route params
+};
 
 export default function MapCard({
   title,
   description,
-  features,
+  features = [],
   buttonText = "View Map",
   route,
-  isPrimary = false
-}) {
+  isPrimary = false,
+  params = {}, // default empty
+}: MapCardProps) {
   const router = useRouter();
 
   return (
     <View style={styles.card}>
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.cardDescription}>{description}</Text>
-      
-      {features && (
+
+      {features.length > 0 && (
         <View style={styles.features}>
           {features.map((feature, index) => (
             <Text key={index} style={styles.featureItem}>• {feature}</Text>
@@ -30,7 +41,7 @@ export default function MapCard({
           isPrimary ? styles.primaryButton : styles.secondaryButton,
           pressed && (isPrimary ? styles.primaryPressed : styles.secondaryPressed)
         ]}
-          onPress={() => router.push({ pathname: route, params: { title } })}
+        onPress={() => router.push({ pathname: route, params: { title, ...params } })}
       >
         <Text style={isPrimary ? styles.primaryButtonText : styles.secondaryButtonText}>
           {buttonText}
